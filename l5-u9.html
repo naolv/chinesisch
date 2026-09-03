@@ -42,22 +42,14 @@
         }
         .audio-btn:hover { transform: scale(1.2); }
 
-        /* Dialog */
-        .dialog-box { display: flex; flex-direction: column; gap: 15px; }
-        .dialog-line { display: flex; gap: 15px; align-items: flex-start; background: #f8f9fa; padding: 12px; border-radius: 8px; }
-        .speaker { background: var(--primary); color: white; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.9em; }
-        .speaker.b { background: #2980b9; }
-        .dialog-text .cn { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
-        .dialog-text .py { color: #7f8c8d; font-size: 0.95em; }
-        .dialog-text .de { color: #27ae60; font-size: 0.95em; margin-top: 3px; }
-
         /* Schreibtrainer */
         .writer-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px; }
         .char-info-box {
             text-align: center; background: #f8f9fa; padding: 12px 20px; border-radius: 8px;
-            border: 1px solid #e0e0e0; width: 80%; max-width: 300px;
+            border: 1px solid #e0e0e0; width: 80%; max-width: 320px;
         }
         .char-info-box .char-title { font-size: 1.8em; font-weight: bold; color: var(--primary); }
+        .char-info-box .char-trad { font-size: 0.9em; color: #8e44ad; font-weight: bold; margin-bottom: 4px; }
         .char-info-box .char-pinyin { font-size: 1.2em; color: #7f8c8d; font-weight: 500; }
         .char-info-box .char-german { font-size: 1em; color: var(--text); margin-top: 2px; }
         #grid-background-target { border: 3px solid var(--primary); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -74,10 +66,11 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
         .card { border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; background: #fafafa; }
         .card:hover { border-color: var(--primary); }
-        .chinese { font-size: 1.8em; color: #111; margin-bottom: 5px; }
+        .chinese { font-size: 1.8em; color: #111; margin-bottom: 2px; }
+        .trad-tag { font-size: 0.8em; color: #8e44ad; visibility: hidden; }
         .pinyin { font-size: 1em; color: #7f8c8d; visibility: hidden; }
         .german { font-size: 0.95em; color: var(--primary); font-weight: bold; margin-top: 5px; visibility: hidden; }
-        .card.active .pinyin, .card.active .german { visibility: visible; }
+        .card.active .pinyin, .card.active .german, .card.active .trad-tag { visibility: visible; }
 
         /* Zuordnungsspiel mit 3 Spalten */
         .match-container-3col { display: flex; justify-content: space-between; gap: 10px; }
@@ -138,6 +131,7 @@
             <div class="char-info-box">
                 <span class="char-title" id="info-char">得</span>
                 <button class="audio-btn" onclick="speakCurrentChar()">🔊</button>
+                <div class="char-trad" id="info-trad">Langzeichen: 得</div>
                 <div class="char-pinyin" id="info-pinyin">děi</div>
                 <div class="char-german" id="info-german">müssen / sollen</div>
             </div>
@@ -151,49 +145,10 @@
         </div>
     </div>
 
-    <!-- DIALOG SECTION -->
-    <div class="section">
-        <h2>🗣️ Übungsdialog (对话)</h2>
-        <div class="dialog-box">
-            <div class="dialog-line">
-                <div class="speaker">A</div>
-                <div class="dialog-text">
-                    <div class="cn">过马路的时候，我们得注意安全。 <button class="audio-btn" onclick="speak('过马路的时候，我们得注意安全。')">🔊</button></div>
-                    <div class="py">Guò mǎlù de shíhou, wǒmen děi zhùyì ānquán.</div>
-                    <div class="de">Beim Überqueren der Straße müssen wir auf die Sicherheit achten.</div>
-                </div>
-            </div>
-            <div class="dialog-line">
-                <div class="speaker b">B</div>
-                <div class="dialog-text">
-                    <div class="cn">对！坐汽车也得系安全带，戴安全帽。 <button class="audio-btn" onclick="speak('对！坐汽车也得系安全带，戴安全帽。')">🔊</button></div>
-                    <div class="py">Duì! Zuò qìchē yě děi jì ānquándài, dài ānquánmào.</div>
-                    <div class="de">Richtig! Im Auto muss man auch den Sicherheitsgurt anlegen und einen Helm tragen.</div>
-                </div>
-            </div>
-            <div class="dialog-line">
-                <div class="speaker">A</div>
-                <div class="dialog-text">
-                    <div class="cn">你小心一点，不要摔倒了。身体哪里不舒服吗？ <button class="audio-btn" onclick="speak('你小心一点，不要摔倒了。身体哪里不舒服吗？')">🔊</button></div>
-                    <div class="py">Nǐ xiǎoxīn yīdiǎn, bùyào shuāidǎo le. Shēntǐ nǎlǐ bù shūfu ma?</div>
-                    <div class="de">Pass auf, stürze nicht. Geht es dir irgendwo nicht gut?</div>
-                </div>
-            </div>
-            <div class="dialog-line">
-                <div class="speaker b">B</div>
-                <div class="dialog-text">
-                    <div class="cn">我肚子有点疼，明天得去看病。 <button class="audio-btn" onclick="speak('我肚子有点疼，明天得去看病。')">🔊</button></div>
-                    <div class="py">Wǒ dùzi yǒudiǎn téng, míngtiān děi qù kànbìng.</div>
-                    <div class="de">Mein Bauch tut etwas weh, morgen muss ich zum Arzt gehen.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ÜBUNG 1: 3-FELDER ZUORDNUNG -->
+    <!-- ÜBUNG 1: 3-FELDER ZUORDNUNG MIT LANGZEICHEN-SUPPORT -->
     <div class="section">
         <h2>🧩 Übung 1: Zeichen, Pinyin & Deutsch verbinden</h2>
-        <p class="hint">Wähle jeweils ein Feld aus jeder Spalte, die zusammengehören!</p>
+        <p class="hint">Wähle jeweils ein Feld aus jeder Spalte, die zusammengehören! (Hinweis: Zeichen können auch Langzeichen sein!)</p>
         <div class="match-container-3col">
             <div class="match-column" id="cn-column"></div>
             <div class="match-column" id="py-column"></div>
@@ -241,29 +196,29 @@
 
 <script>
     const charData = {
-        '得': { py: 'děi', de: 'müssen / sollen' },
-        '很': { py: 'hěn', de: 'sehr' },
-        '行': { py: 'xíng / háng', de: 'gehen / Zeile' },
-        '心': { py: 'xīn', de: 'Herz' },
-        '意': { py: 'yì', de: 'Gedanke / Idee' },
-        '疼': { py: 'téng', de: 'Schmerz / schmerzen' },
-        '病': { py: 'bìng', de: 'Krankheit / krank sein' },
-        '裙': { py: 'qún', de: 'Rock' },
-        '裤': { py: 'kù', de: 'Hose' }
+        '得': { trad: '得', py: 'děi', de: 'müssen / sollen' },
+        '很': { trad: '很', py: 'hěn', de: 'sehr' },
+        '行': { trad: '行', py: 'xíng / háng', de: 'gehen / Zeile' },
+        '心': { trad: '心', py: 'xīn', de: 'Herz' },
+        '意': { trad: '意', py: 'yì', de: 'Gedanke / Idee' },
+        '疼': { trad: '疼', py: 'téng', de: 'Schmerz / schmerzen' },
+        '病': { trad: '病', py: 'bìng', de: 'Krankheit / krank sein' },
+        '裙': { trad: '裙', py: 'qún', de: 'Rock' },
+        '裤': { trad: '褲', py: 'kù', de: 'Hose' }
     };
 
     const vocabData = [
-        { cn: "过马路", py: "guò mǎlù", de: "Straße überqueren" },
-        { cn: "注意", py: "zhùyì", de: "aufpassen / Achtung" },
-        { cn: "安全", py: "ānquán", de: "Sicherheit / sicher" },
-        { cn: "摔", py: "shuāi", de: "hinfallen / stürzen" },
-        { cn: "系", py: "jì", de: "binden / festmachen" },
-        { cn: "安全带", py: "ānquándài", de: "Sicherheitsgurt" },
-        { cn: "安全帽", py: "ānquánmào", de: "Helm" },
-        { cn: "城市", py: "chéngshì", de: "Stadt" },
-        { cn: "汽车", py: "qìchē", de: "Auto / PKW" },
-        { cn: "排队", py: "páiduì", de: "Schlange stehen" },
-        { cn: "保护", py: "bǎohù", de: "schützen" }
+        { cn: "过马路", trad: "過馬路", py: "guò mǎlù", de: "Straße überqueren" },
+        { cn: "注意", trad: "注意", py: "zhùyì", de: "aufpassen / Achtung" },
+        { cn: "安全", trad: "安全", py: "ānquán", de: "Sicherheit / sicher" },
+        { cn: "摔", trad: "摔", py: "shuāi", de: "hinfallen / stürzen" },
+        { cn: "系", trad: "繫", py: "jì", de: "binden / festmachen" },
+        { cn: "安全带", trad: "安全帶", py: "ānquándài", de: "Sicherheitsgurt" },
+        { cn: "安全帽", trad: "安全帽", py: "ānquánmào", de: "Helm" },
+        { cn: "城市", trad: "城市", py: "chéngshì", de: "Stadt" },
+        { cn: "汽车", trad: "汽車", py: "qìchē", de: "Auto / PKW" },
+        { cn: "排队", trad: "排隊", py: "páiduì", de: "Schlange stehen" },
+        { cn: "保护", trad: "保護", py: "bǎohù", de: "schützen" }
     ];
 
     const sentenceData = [
@@ -330,6 +285,7 @@
             strokeColor: '#c0392b', outlineColor: '#ddd'
         });
         document.getElementById('info-char').innerText = char;
+        document.getElementById('info-trad').innerText = charData[char].trad !== char ? `Langzeichen: ${charData[char].trad}` : '';
         document.getElementById('info-pinyin').innerText = charData[char].py;
         document.getElementById('info-german').innerText = charData[char].de;
     }
@@ -361,6 +317,7 @@
                     ${item.cn} 
                     <button class="audio-btn" onclick="speak('${item.cn}')">🔊</button>
                 </div>
+                <div class="trad-tag">${item.trad !== item.cn ? 'Langzeichen: ' + item.trad : ''}</div>
                 <div class="pinyin">${item.py}</div>
                 <div class="german">${item.de}</div>
             `;
@@ -384,7 +341,11 @@
 
         shuffCn.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'match-item'; div.innerText = item.cn; div.dataset.id = item.cn;
+            div.className = 'match-item';
+            // Zufällig entscheiden, ob Kurzzeichen oder Langzeichen angezeigt wird
+            const showTrad = Math.random() > 0.5 && item.trad !== item.cn;
+            div.innerText = showTrad ? `${item.trad} (繁)` : item.cn;
+            div.dataset.id = item.cn;
             div.onclick = () => selectMatchItem3(div, 'cn');
             cnCol.appendChild(div);
         });
@@ -424,7 +385,7 @@
                 selectedCn.className = 'match-item matched';
                 selectedPy.className = 'match-item matched';
                 selectedDe.className = 'match-item matched';
-                speak(selectedCn.innerText);
+                speak(selectedCn.dataset.id);
             } else {
                 selectedCn.classList.remove('selected');
                 selectedPy.classList.remove('selected');
@@ -526,7 +487,7 @@
         const cleanPy = item.py.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
         const cleanInput = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
 
-        if (cleanInput === item.cn || cleanInput === cleanPy) {
+        if (cleanInput === item.cn || cleanInput === item.trad || cleanInput === cleanPy) {
             feedback.style.color = 'var(--success)';
             feedback.innerText = '✅ Richtig geschrieben!';
             speak(item.cn);
@@ -540,7 +501,7 @@
         const item = vocabData[currentTypeIndex];
         const feedback = document.getElementById('type-feedback');
         feedback.style.color = '#f39c12';
-        feedback.innerText = `💡 Lösung: ${item.cn} (${item.py})`;
+        feedback.innerText = `💡 Lösung: ${item.cn} ${item.trad !== item.cn ? '(' + item.trad + ')' : ''} [${item.py}]`;
         speak(item.cn);
     }
 
