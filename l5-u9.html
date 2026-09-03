@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             padding: 20px;
         }
 
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 850px; margin: 0 auto; }
         .nav-back { display: inline-block; margin-bottom: 15px; color: var(--primary); text-decoration: none; font-weight: bold; }
         h1, h2 { text-align: center; color: var(--primary); }
         
@@ -68,6 +68,7 @@
         .btn { background-color: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-size: 1em; cursor: pointer; }
         .btn:hover { background-color: #a93226; }
         .btn-secondary { background-color: #7f8c8d; }
+        .btn-warning { background-color: #f39c12; }
 
         /* Vokabelkarten Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
@@ -78,18 +79,15 @@
         .german { font-size: 0.95em; color: var(--primary); font-weight: bold; margin-top: 5px; visibility: hidden; }
         .card.active .pinyin, .card.active .german { visibility: visible; }
 
-        /* Zuordnungsspiel mit Pinyin */
-        .match-container { display: flex; justify-content: space-between; gap: 15px; }
-        .match-column { display: flex; flex-direction: column; gap: 10px; width: 48%; }
+        /* Zuordnungsspiel mit 3 Spalten */
+        .match-container-3col { display: flex; justify-content: space-between; gap: 10px; }
+        .match-column { display: flex; flex-direction: column; gap: 10px; width: 32%; }
         .match-item {
-            padding: 10px; border: 2px solid #ddd; border-radius: 6px; background: #f9f9f9;
-            text-align: center; cursor: pointer; transition: all 0.2s;
+            padding: 10px 5px; border: 2px solid #ddd; border-radius: 6px; background: #f9f9f9;
+            text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.95em;
         }
-        .match-item .item-cn { font-size: 1.2em; font-weight: bold; }
-        .match-item .item-py { font-size: 0.85em; color: #7f8c8d; }
-        .match-item.selected { border-color: var(--primary); background-color: #fdeae8; }
+        .match-item.selected { border-color: var(--primary); background-color: #fdeae8; font-weight: bold; }
         .match-item.matched { border-color: var(--success); background-color: #e8f8f5; color: var(--success); cursor: default; }
-        .match-item.matched .item-py { color: var(--success); }
 
         /* Satzbau-Übung */
         .sentence-box { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; }
@@ -106,6 +104,11 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .word-chip .chip-py { font-size: 0.75em; display: block; color: #7f8c8d; font-weight: normal; }
+
+        /* Tipp-Übung (Übung 3) */
+        .typing-box { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .typing-prompt { font-size: 1.3em; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
+        .typing-input { padding: 10px; font-size: 1.1em; width: 60%; border: 2px solid #ccc; border-radius: 6px; text-align: center; }
     </style>
 </head>
 <body>
@@ -187,17 +190,18 @@
         </div>
     </div>
 
-    <!-- ZUORDNUNGS-ÜBUNG MIT PINYIN -->
+    <!-- ÜBUNG 1: 3-FELDER ZUORDNUNG -->
     <div class="section">
-        <h2>🧩 Übung 1: Wörter & Pinyin zuordnen</h2>
-        <p class="hint">Klicke links auf das Wort (inkl. Pinyin) und rechts auf die passende Übersetzung!</p>
-        <div class="match-container">
+        <h2>🧩 Übung 1: Zeichen, Pinyin & Deutsch verbinden</h2>
+        <p class="hint">Wähle jeweils ein Feld aus jeder Spalte, die zusammengehören!</p>
+        <div class="match-container-3col">
             <div class="match-column" id="cn-column"></div>
+            <div class="match-column" id="py-column"></div>
             <div class="match-column" id="de-column"></div>
         </div>
     </div>
 
-    <!-- SATZBAU-ÜBUNG -->
+    <!-- ÜBUNG 2: SATZBAU -->
     <div class="section">
         <h2>🧱 Übung 2: Sätze bauen</h2>
         <p class="hint">Klicke auf die Wörter, um den deutschen Satz auf Chinesisch zusammenzubauen!</p>
@@ -206,8 +210,24 @@
             <div class="drop-zone" id="drop-zone"></div>
             <div class="word-pool" id="word-pool"></div>
             <button class="btn" onclick="checkSentence()">Überprüfen</button>
+            <button class="btn btn-warning" onclick="showSentenceSolution()">💡 Lösung anzeigen</button>
             <button class="btn btn-secondary" onclick="nextSentence()">Nächster Satz</button>
             <div id="sentence-feedback" style="margin-top:10px; font-weight:bold;"></div>
+        </div>
+    </div>
+
+    <!-- ÜBUNG 3: SELBST SCHREIBEN -->
+    <div class="section">
+        <h2>⌨️ Übung 3: Selbst schreiben</h2>
+        <p class="hint">Tippe das passende chinesische Wort oder Pinyin ein!</p>
+        <div class="typing-box">
+            <div class="typing-prompt" id="type-prompt">Deutschen Begriff laden...</div>
+            <input type="text" id="type-input" class="typing-input" placeholder="Chinesisch oder Pinyin eintippen..." autocomplete="off">
+            <br><br>
+            <button class="btn" onclick="checkTyping()">Überprüfen</button>
+            <button class="btn btn-warning" onclick="showTypingSolution()">💡 Lösung anzeigen</button>
+            <button class="btn btn-secondary" onclick="nextTyping()">Nächstes Wort</button>
+            <div id="type-feedback" style="margin-top:10px; font-weight:bold;"></div>
         </div>
     </div>
 
@@ -246,7 +266,6 @@
         { cn: "保护", py: "bǎohù", de: "schützen" }
     ];
 
-    // Übung 2: Sätze bauen Daten
     const sentenceData = [
         {
             de: "Wir müssen die Straße überqueren.",
@@ -349,64 +368,73 @@
         });
     }
 
-    // Zuordnungsspiel
-    let selectedCn = null;
-    let selectedDe = null;
+    // ÜBUNG 1: 3-FELDER ZUORDNUNG
+    let selectedCn = null, selectedPy = null, selectedDe = null;
 
-    function initMatchingGame() {
+    function initMatchingGame3Col() {
         const cnCol = document.getElementById('cn-column');
+        const pyCol = document.getElementById('py-column');
         const deCol = document.getElementById('de-column');
-        cnCol.innerHTML = ''; deCol.innerHTML = '';
+        cnCol.innerHTML = ''; pyCol.innerHTML = ''; deCol.innerHTML = '';
 
-        const subset = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 5);
+        const subset = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 4);
         const shuffCn = [...subset].sort(() => 0.5 - Math.random());
+        const shuffPy = [...subset].sort(() => 0.5 - Math.random());
         const shuffDe = [...subset].sort(() => 0.5 - Math.random());
 
         shuffCn.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'match-item';
-            div.dataset.id = item.cn;
-            div.innerHTML = `<div class="item-cn">${item.cn}</div><div class="item-py">${item.py}</div>`;
-            div.onclick = () => selectMatchItem(div, 'cn');
+            div.className = 'match-item'; div.innerText = item.cn; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'cn');
             cnCol.appendChild(div);
+        });
+
+        shuffPy.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'match-item'; div.innerText = item.py; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'py');
+            pyCol.appendChild(div);
         });
 
         shuffDe.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'match-item';
-            div.innerText = item.de;
-            div.dataset.id = item.cn;
-            div.onclick = () => selectMatchItem(div, 'de');
+            div.className = 'match-item'; div.innerText = item.de; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'de');
             deCol.appendChild(div);
         });
     }
 
-    function selectMatchItem(el, type) {
+    function selectMatchItem3(el, type) {
         if(el.classList.contains('matched')) return;
 
         if (type === 'cn') {
             document.querySelectorAll('#cn-column .match-item').forEach(i => i.classList.remove('selected'));
             selectedCn = el;
+        } else if (type === 'py') {
+            document.querySelectorAll('#py-column .match-item').forEach(i => i.classList.remove('selected'));
+            selectedPy = el;
         } else {
             document.querySelectorAll('#de-column .match-item').forEach(i => i.classList.remove('selected'));
             selectedDe = el;
         }
         el.classList.add('selected');
 
-        if (selectedCn && selectedDe) {
-            if (selectedCn.dataset.id === selectedDe.dataset.id) {
+        if (selectedCn && selectedPy && selectedDe) {
+            if (selectedCn.dataset.id === selectedPy.dataset.id && selectedPy.dataset.id === selectedDe.dataset.id) {
                 selectedCn.className = 'match-item matched';
+                selectedPy.className = 'match-item matched';
                 selectedDe.className = 'match-item matched';
-                speak(selectedCn.querySelector('.item-cn').innerText);
+                speak(selectedCn.innerText);
             } else {
                 selectedCn.classList.remove('selected');
+                selectedPy.classList.remove('selected');
                 selectedDe.classList.remove('selected');
             }
-            selectedCn = null; selectedDe = null;
+            selectedCn = null; selectedPy = null; selectedDe = null;
         }
     }
 
-    // Satzbau Übung
+    // ÜBUNG 2: SATZBAU
     let currentSentenceIdx = 0;
     let userSentence = [];
 
@@ -433,7 +461,6 @@
 
     function addWordToSentence(wordObj, chipEl) {
         if (chipEl.style.visibility === 'hidden') return;
-        
         userSentence.push(wordObj);
         chipEl.style.visibility = 'hidden';
 
@@ -463,8 +490,17 @@
             speak(userText);
         } else {
             feedback.style.color = 'var(--primary)';
-            feedback.innerText = `❌ Noch nicht richtig. Richtig ist: ${correctText}`;
+            feedback.innerText = '❌ Noch nicht ganz richtig. Versuche es weiter oder klicke auf "Lösung anzeigen"!';
         }
+    }
+
+    function showSentenceSolution() {
+        const item = sentenceData[currentSentenceIdx];
+        const correctText = item.correct.join('');
+        const feedback = document.getElementById('sentence-feedback');
+        feedback.style.color = '#f39c12';
+        feedback.innerText = `💡 Die richtige Lösung lautet: ${correctText}`;
+        speak(correctText);
     }
 
     function nextSentence() {
@@ -472,10 +508,52 @@
         loadSentenceQuestion();
     }
 
+    // ÜBUNG 3: SELBST SCHREIBEN / TIPPEN
+    let currentTypeIndex = 0;
+
+    function loadTypingQuestion() {
+        const item = vocabData[currentTypeIndex];
+        document.getElementById('type-prompt').innerText = item.de;
+        document.getElementById('type-input').value = '';
+        document.getElementById('type-feedback').innerText = '';
+    }
+
+    function checkTyping() {
+        const input = document.getElementById('type-input').value.trim().toLowerCase();
+        const item = vocabData[currentTypeIndex];
+        const feedback = document.getElementById('type-feedback');
+
+        const cleanPy = item.py.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
+        const cleanInput = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
+
+        if (cleanInput === item.cn || cleanInput === cleanPy) {
+            feedback.style.color = 'var(--success)';
+            feedback.innerText = '✅ Richtig geschrieben!';
+            speak(item.cn);
+        } else {
+            feedback.style.color = 'var(--primary)';
+            feedback.innerText = '❌ Nicht ganz richtig. Versuche es nochmal!';
+        }
+    }
+
+    function showTypingSolution() {
+        const item = vocabData[currentTypeIndex];
+        const feedback = document.getElementById('type-feedback');
+        feedback.style.color = '#f39c12';
+        feedback.innerText = `💡 Lösung: ${item.cn} (${item.py})`;
+        speak(item.cn);
+    }
+
+    function nextTyping() {
+        currentTypeIndex = (currentTypeIndex + 1) % vocabData.length;
+        loadTypingQuestion();
+    }
+
     window.onload = function() {
         renderVocabGrid();
-        initMatchingGame();
+        initMatchingGame3Col();
         loadSentenceQuestion();
+        loadTypingQuestion();
         initWriter(currentChar);
     };
 </script>
