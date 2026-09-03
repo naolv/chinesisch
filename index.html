@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinesisch Lernecke</title>
+    <title>Chinesisch Lernecke - Übersichtsseite</title>
     <style>
         :root {
             --primary: #c0392b;
@@ -15,108 +15,99 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--background);
+            /* Optionaler sanfter Hintergrundverlauf */
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             color: var(--text);
             margin: 0;
             padding: 20px;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 25px;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { text-align: center; color: var(--primary); font-size: 2.2em; margin-bottom: 10px; }
+        p.subtitle { text-align: center; color: #555; margin-bottom: 30px; }
 
         .level-card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-            border-top: 4px solid var(--primary);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
 
         .level-title {
-            font-size: 1.3em;
-            font-weight: bold;
+            font-size: 1.4em;
             color: var(--primary);
-            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+            margin-top: 0;
         }
 
-        .unit-title {
-            font-size: 1em;
-            font-weight: bold;
-            color: #7f8c8d;
-            margin: 15px 0 8px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .unit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        .lesson-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .unit-btn {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .lesson-btn {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 10px 14px;
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            color: var(--text);
+            padding: 15px;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 500;
+            color: var(--text);
             transition: all 0.2s ease;
         }
 
-        .lesson-btn:hover {
-            background: #fdeae8;
+        .unit-btn:hover {
             border-color: var(--primary);
-            color: var(--primary);
-            transform: translateX(3px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fdf2f2;
         }
+
+        .unit-btn .title { font-weight: bold; font-size: 1.1em; color: var(--primary); }
+        .unit-btn .subtitle { font-size: 0.85em; color: #7f8c8d; margin-top: 4px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🇨🇳 Chinesisch Lernecke</h1>
+    <h1>🐼 Chinesisch Lernecke</h1>
+    <p class="subtitle">Wähle eine Lektion aus, um zu üben!</p>
 
     <!-- LEVEL 5 -->
     <div class="level-card">
-        <div class="level-title">📘 Level 5</div>
-        
-        <div class="unit-title">Unit 6</div>
-        <ul class="lesson-list">
-            <li>
-                <a href="l5-u6-l6.html" class="lesson-btn">
-                    <span>Lektion 6</span>
-                    <span>➔</span>
-                </a>
-            </li>
-        </ul>
+        <h2 class="level-title">📘 Level 5</h2>
+        <div class="unit-grid">
+            
+            <a href="l5-u6-l6.html" class="unit-btn">
+                <span class="title">Lektion 6</span>
+                <span class="subtitle">体育馆与操场 (Turnhalle & Sportplatz)</span>
+            </a>
 
-        <div class="unit-title">Unit 9</div>
-        <ul class="lesson-list">
-            <li>
-                <a href="l5-u9.html" class="lesson-btn">
-                    <span>Lektion 9</span>
-                    <span>➔</span>
-                </a>
-            </li>
-        </ul>
+            <a href="l5-u7.html" class="unit-btn">
+                <span class="title">Lektion 7</span>
+                <span class="subtitle">Vorbereitet... (Vokabeln & Übungen)</span>
+            </a>
+
+            <a href="l5-u8.html" class="unit-btn">
+                <span class="title">Lektion 8</span>
+                <span class="subtitle">Vorbereitet... (Vokabeln & Übungen)</span>
+            </a>
+
+            <a href="l5-u9.html" class="unit-btn">
+                <span class="title">Unit 9</span>
+                <span class="subtitle">交通安全与看病 (Verkehr & Gesundheit)</span>
+            </a>
+
+        </div>
     </div>
-
 </div>
 
 </body>
