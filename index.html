@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinesisch Lernecke</title>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --background: #f4f6f7;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .level-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--primary);
+        }
+
+        .level-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .unit-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin: 15px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lesson-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lesson-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .lesson-btn:hover {
+            background: #fdeae8;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🇨🇳 Chinesisch Lernecke</h1>
+
+    <!-- LEVEL 3 -->
+    <div class="level-card">
+        <div class="level-title">📗 Level 3</div>
+        
+        <div class="unit-title">Unit 2</div>
+        <ul class="lesson-list">
+            <li>
+                <a href="l3-u2-l1.html" class="lesson-btn">
+                    <span>Lektion 1</span>
+                    <span>➔</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- LEVEL 5 -->
+    <div class="level-card">
+        <div class="level-title">📘 Level 5</div>
+        
+        <div class="unit-title">Unit 6</div>
+        <ul class="lesson-list">
+            <li>
+                <a href="l5-u6-l6.html" class="lesson-btn">
+                    <span>Lektion 6</span>
+                    <span>➔</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
