@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinesisch Lernecke</title>
-    <!-- Hanzi Writer Library -->
+    <title>Level 5 Unit 6 Lektion 6 - Chinesisch Lernecke</title>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <style>
         :root {
@@ -23,16 +22,10 @@
             padding: 20px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: var(--primary);
-        }
-
+        .container { max-width: 850px; margin: 0 auto; }
+        .nav-back { display: inline-block; margin-bottom: 15px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        h1, h2 { text-align: center; color: var(--primary); }
+        
         .section {
             background: var(--card-bg);
             padding: 20px;
@@ -41,250 +34,90 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .hint {
-            text-align: center;
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 15px;
-        }
+        .hint { text-align: center; font-size: 0.9em; color: #666; margin-bottom: 15px; }
 
-        /* Audio Buttons */
         .audio-btn {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            padding: 0 5px;
+            background: none; border: none; font-size: 1.2em; cursor: pointer; padding: 0 5px;
             transition: transform 0.1s;
         }
+        .audio-btn:hover { transform: scale(1.2); }
 
-        .audio-btn:hover {
-            transform: scale(1.2);
-        }
-
-        /* Dialog Styling */
-        .dialog-box {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .dialog-line {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .speaker {
-            background: var(--primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
+        /* Dialog */
+        .dialog-box { display: flex; flex-direction: column; gap: 15px; }
+        .dialog-line { display: flex; gap: 15px; align-items: flex-start; background: #f8f9fa; padding: 12px; border-radius: 8px; }
+        .speaker { background: var(--primary); color: white; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.9em; }
         .speaker.b { background: #2980b9; }
-
-        .dialog-text .cn {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
+        .dialog-text .cn { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
         .dialog-text .py { color: #7f8c8d; font-size: 0.95em; }
         .dialog-text .de { color: #27ae60; font-size: 0.95em; margin-top: 3px; }
 
-        /* Schreibtrainer Styling */
-        .writer-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
+        /* Schreibtrainer */
+        .writer-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px; }
         .char-info-box {
-            text-align: center;
-            background: #f8f9fa;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            width: 80%;
-            max-width: 300px;
+            text-align: center; background: #f8f9fa; padding: 12px 20px; border-radius: 8px;
+            border: 1px solid #e0e0e0; width: 80%; max-width: 320px;
         }
-
-        .char-info-box .char-title {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .char-info-box .char-pinyin {
-            font-size: 1.2em;
-            color: #7f8c8d;
-            font-weight: 500;
-        }
-
-        .char-info-box .char-german {
-            font-size: 1em;
-            color: var(--text);
-            margin-top: 2px;
-        }
-
-        #grid-background-target {
-            border: 3px solid var(--primary);
-            border-radius: 10px;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .character-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .char-btn {
-            font-size: 1.4em;
-            padding: 8px 14px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            background: #fff;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .char-btn:hover, .char-btn.active {
-            border-color: var(--primary);
-            background-color: #fdeae8;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
+        .char-info-box .char-title { font-size: 1.8em; font-weight: bold; color: var(--primary); }
+        .char-info-box .char-trad { font-size: 0.9em; color: #8e44ad; font-weight: bold; margin-bottom: 4px; }
+        .char-info-box .char-pinyin { font-size: 1.2em; color: #7f8c8d; font-weight: 500; }
+        .char-info-box .char-german { font-size: 1em; color: var(--text); margin-top: 2px; }
+        #grid-background-target { border: 3px solid var(--primary); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .character-selector { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .char-btn { font-size: 1.4em; padding: 8px 14px; border: 2px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; }
+        .char-btn:hover, .char-btn.active { border-color: var(--primary); background-color: #fdeae8; color: var(--primary); font-weight: bold; }
         .controls { display: flex; gap: 10px; }
-
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
+        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-size: 1em; cursor: pointer; }
         .btn:hover { background-color: #a93226; }
         .btn-secondary { background-color: #7f8c8d; }
-        .btn-secondary:hover { background-color: #626567; }
+        .btn-warning { background-color: #f39c12; }
 
         /* Vokabelkarten Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
-        .card {
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            background: #fafafa;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-        }
-
-        .chinese { font-size: 1.8em; color: #111; margin-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .card { border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; background: #fafafa; }
+        .card:hover { border-color: var(--primary); }
+        .chinese { font-size: 1.8em; color: #111; margin-bottom: 2px; }
+        .trad-tag { font-size: 0.8em; color: #8e44ad; visibility: hidden; }
         .pinyin { font-size: 1em; color: #7f8c8d; visibility: hidden; }
         .german { font-size: 0.95em; color: var(--primary); font-weight: bold; margin-top: 5px; visibility: hidden; }
+        .card.active .pinyin, .card.active .german, .card.active .trad-tag { visibility: visible; }
 
-        .card.active .pinyin, .card.active .german { visibility: visible; }
-
-        /* Zuordnungsspiel Styling */
-        .match-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .match-column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 48%;
-        }
-
+        /* Zuordnungsspiel mit 3 Spalten */
+        .match-container-3col { display: flex; justify-content: space-between; gap: 10px; }
+        .match-column { display: flex; flex-direction: column; gap: 10px; width: 32%; }
         .match-item {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            background: #f9f9f9;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
+            padding: 10px 5px; border: 2px solid #ddd; border-radius: 6px; background: #f9f9f9;
+            text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.95em;
         }
+        .match-item.selected { border-color: var(--primary); background-color: #fdeae8; font-weight: bold; }
+        .match-item.matched { border-color: var(--success); background-color: #e8f8f5; color: var(--success); cursor: default; }
 
-        .match-item.selected {
-            border-color: var(--primary);
-            background-color: #fdeae8;
+        /* Satzbau-Übung */
+        .sentence-box { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .sentence-target { font-size: 1.2em; font-weight: bold; color: var(--primary); margin-bottom: 15px; }
+        .drop-zone {
+            min-height: 50px; border: 2px dashed #bbb; border-radius: 8px; padding: 10px;
+            background: #fff; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+            align-items: center; margin-bottom: 15px;
         }
+        .word-pool { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .word-chip {
+            padding: 8px 14px; background: #fff; border: 2px solid var(--primary);
+            border-radius: 20px; color: var(--primary); font-weight: bold; cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .word-chip .chip-py { font-size: 0.75em; display: block; color: #7f8c8d; font-weight: normal; }
 
-        .match-item.matched {
-            border-color: var(--success);
-            background-color: #e8f8f5;
-            color: var(--success);
-            cursor: default;
-        }
-
-        /* Tipp-Übung Styling */
-        .typing-box {
-            text-align: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .typing-prompt {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .typing-input {
-            padding: 10px;
-            font-size: 1.1em;
-            width: 60%;
-            border: 2px solid #ccc;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .typing-feedback {
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
+        /* Tipp-Übung (Übung 3) */
+        .typing-box { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .typing-prompt { font-size: 1.3em; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
+        .typing-input { padding: 10px; font-size: 1.1em; width: 60%; border: 2px solid #ccc; border-radius: 6px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Chinesisch Lernecke</h1>
+    <a href="index.html" class="nav-back">⬅ Zurück zum Hauptmenü</a>
+    <h1>📘 Level 5 Unit 6 - Lektion 6</h1>
 
     <!-- SCHREIBTRAINER SECTION -->
     <div class="section">
@@ -292,30 +125,25 @@
         <p class="hint">Wähle ein Zeichen, höre die Aussprache und zeichne es nach!</p>
         
         <div class="character-selector">
-            <button class="char-btn active" onclick="selectChar('经', this)">经</button>
-            <button class="char-btn" onclick="selectChar('练', this)">练</button>
-            <button class="char-btn" onclick="selectChar('礼', this)">礼</button>
-            <button class="char-btn" onclick="selectChar('祝', this)">祝</button>
-            <button class="char-btn" onclick="selectChar('第', this)">第</button>
-            <button class="char-btn" onclick="selectChar('筷', this)">筷</button>
-            <button class="char-btn" onclick="selectChar('笑', this)">笑</button>
-            <button class="char-btn" onclick="selectChar('篮', this)">篮</button>
-            <button class="char-btn" onclick="selectChar('笔', this)">笔</button>
-            <button class="char-btn" onclick="selectChar('多', this)">多</button>
-            <button class="char-btn" onclick="selectChar('岁', this)">岁</button>
-            <button class="char-btn" onclick="selectChar('名', this)">名</button>
+            <button class="char-btn active" onclick="selectChar('馆', this)">馆</button>
+            <button class="char-btn" onclick="selectChar('体', this)">体</button>
+            <button class="char-btn" onclick="selectChar('育', this)">育</button>
+            <button class="char-btn" onclick="selectChar('场', this)">场</button>
+            <button class="char-btn" onclick="selectChar('操', this)">操</button>
+            <button class="char-btn" onclick="selectChar('离', this)">离</button>
+            <button class="char-btn" onclick="selectChar('远', this)">远</button>
+            <button class="char-btn" onclick="selectChar('近', this)">近</button>
         </div>
 
         <div class="writer-container">
-            <!-- Info-Box für das gewählte Zeichen -->
             <div class="char-info-box">
-                <span class="char-title" id="info-char">经</span>
+                <span class="char-title" id="info-char">馆</span>
                 <button class="audio-btn" onclick="speakCurrentChar()">🔊</button>
-                <div class="char-pinyin" id="info-pinyin">jīng</div>
-                <div class="char-german" id="info-german">durchgehen / passieren</div>
+                <div class="char-trad" id="info-trad">Langzeichen: 館</div>
+                <div class="char-pinyin" id="info-pinyin">guǎn</div>
+                <div class="char-german" id="info-german">Gebäude / Halle</div>
             </div>
 
-            <!-- Zeichenfeld -->
             <div id="grid-background-target"></div>
 
             <div class="controls">
@@ -328,77 +156,80 @@
     <!-- DIALOG SECTION -->
     <div class="section">
         <h2>🗣️ Übungsdialog (对话)</h2>
-        <p class="hint">Ein Gespräch mit den neuen Vokabeln der Lektion:</p>
-        
         <div class="dialog-box">
             <div class="dialog-line">
                 <div class="speaker">A</div>
                 <div class="dialog-text">
-                    <div class="cn">你今天去体育馆打网球了吗？ <button class="audio-btn" onclick="speak('你今天去体育馆打网球了吗？')">🔊</button></div>
-                    <div class="py">Nǐ jīntiān qù tīyùguǎn dǎ wǎngqiú le ma?</div>
-                    <div class="de">Bist du heute in die Turnhalle gegangen, um Tennis zu spielen?</div>
+                    <div class="cn">请问，体育馆在哪里？ <button class="audio-btn" onclick="speak('请问，体育馆在哪里？')">🔊</button></div>
+                    <div class="py">Qǐngwèn, tǐyùguǎn zài nǎlǐ?</div>
+                    <div class="de">Entschuldigung, wo ist die Turnhalle?</div>
                 </div>
             </div>
-
             <div class="dialog-line">
                 <div class="speaker b">B</div>
                 <div class="dialog-text">
-                    <div class="cn">去了！比赛刚刚开始，比分非常紧。 <button class="audio-btn" onclick="speak('去了！比赛刚刚开始，比分非常紧。')">🔊</button></div>
-                    <div class="py">Qù le! Bǐsài gānggāng kāishǐ, bǐfēn fēicháng jǐn.</div>
-                    <div class="de">Ja! Das Spiel hat gerade angefangen und der Punktestand ist sehr knapp.</div>
+                    <div class="cn">体育馆就在操场旁边。 <button class="audio-btn" onclick="speak('体育馆就在操场旁边。')">🔊</button></div>
+                    <div class="py">Tǐyùguǎn jiù zài cāochǎng pángbiān.</div>
+                    <div class="de">Die Turnhalle ist direkt neben dem Sportplatz.</div>
                 </div>
             </div>
-
             <div class="dialog-line">
                 <div class="speaker">A</div>
                 <div class="dialog-text">
-                    <div class="cn">虽然对手很强，但是你赢了，对不对？ <button class="audio-btn" onclick="speak('虽然对手很强，但是你赢了，对不对？')">🔊</button></div>
-                    <div class="py">Suīrán duìshǒu hěn qiáng, dànshì nǐ yíng le, duì bu duì?</div>
-                    <div class="de">Obwohl der Gegner stark war, hast du gewonnen, oder?</div>
+                    <div class="cn">离这里远吗？ <button class="audio-btn" onclick="speak('离这里远吗？')">🔊</button></div>
+                    <div class="py">Lí zhèlǐ yuǎn ma?</div>
+                    <div class="de">Ist es weit von hier entfernt?</div>
                 </div>
             </div>
-
             <div class="dialog-line">
                 <div class="speaker b">B</div>
                 <div class="dialog-text">
-                    <div class="cn">是的，我拿了第一名！ <button class="audio-btn" onclick="speak('是的，我拿了第一名！')">🔊</button></div>
-                    <div class="py">Shì de, wǒ ná le dì-yī-míng!</div>
-                    <div class="de">Ja, ich habe den 1. Platz gemacht!</div>
-                </div>
-            </div>
-
-            <div class="dialog-line">
-                <div class="speaker">A</div>
-                <div class="dialog-text">
-                    <div class="cn">太好了，祝贺你！这真是个好消息。 <button class="audio-btn" onclick="speak('太好了，祝贺你！这真是个好消息。')">🔊</button></div>
-                    <div class="py">Tài hǎo le, zhùhè nǐ! Zhè zhēn shì gè hǎo xiāoxi.</div>
-                    <div class="de">Super, ich gratuliere dir! Das ist wirklich eine gute Nachricht.</div>
+                    <div class="cn">不远，很近！走几步就到了。 <button class="audio-btn" onclick="speak('不远，很近！走几步就到了。')">🔊</button></div>
+                    <div class="py">Bù yuǎn, hěn jìn! Zǒu jǐ bù jiù dào le.</div>
+                    <div class="de">Nicht weit, sehr nah! Ein paar Schritte zu Fuß und du bist da.</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ZUORDNUNGS-ÜBUNG -->
+    <!-- ÜBUNG 1: 3-FELDER ZUORDNUNG -->
     <div class="section">
-        <h2>🧩 Übung 1: Wörter zuordnen</h2>
-        <p class="hint">Klicke zuerst auf ein chinesisches Wort und dann auf die passende deutsche Übersetzung!</p>
-        <div class="match-container">
+        <h2>🧩 Übung 1: Zeichen, Pinyin & Deutsch verbinden</h2>
+        <p class="hint">Wähle jeweils ein Feld aus jeder Spalte, die zusammengehören! (Hinweis: Zeichen können auch Langzeichen sein!)</p>
+        <div class="match-container-3col">
             <div class="match-column" id="cn-column"></div>
+            <div class="match-column" id="py-column"></div>
             <div class="match-column" id="de-column"></div>
         </div>
     </div>
 
-    <!-- SCHREIB- & TIPP-ÜBUNG -->
+    <!-- ÜBUNG 2: SATZBAU -->
     <div class="section">
-        <h2>⌨️ Übung 2: Schreiben & Tippen</h2>
+        <h2>🧱 Übung 2: Sätze bauen</h2>
+        <p class="hint">Klicke auf die Wörter, um den deutschen Satz auf Chinesisch zusammenzubauen!</p>
+        <div class="sentence-box">
+            <div class="sentence-target" id="sentence-target">Deutscher Satz...</div>
+            <div class="drop-zone" id="drop-zone"></div>
+            <div class="word-pool" id="word-pool"></div>
+            <button class="btn" onclick="checkSentence()">Überprüfen</button>
+            <button class="btn btn-warning" onclick="showSentenceSolution()">💡 Lösung anzeigen</button>
+            <button class="btn btn-secondary" onclick="nextSentence()">Nächster Satz</button>
+            <div id="sentence-feedback" style="margin-top:10px; font-weight:bold;"></div>
+        </div>
+    </div>
+
+    <!-- ÜBUNG 3: SELBST SCHREIBEN -->
+    <div class="section">
+        <h2>⌨️ Übung 3: Selbst schreiben</h2>
         <p class="hint">Tippe das passende chinesische Wort oder Pinyin ein!</p>
         <div class="typing-box">
             <div class="typing-prompt" id="type-prompt">Deutschen Begriff laden...</div>
             <input type="text" id="type-input" class="typing-input" placeholder="Chinesisch oder Pinyin eintippen..." autocomplete="off">
             <br><br>
             <button class="btn" onclick="checkTyping()">Überprüfen</button>
+            <button class="btn btn-warning" onclick="showTypingSolution()">💡 Lösung anzeigen</button>
             <button class="btn btn-secondary" onclick="nextTyping()">Nächstes Wort</button>
-            <div class="typing-feedback" id="type-feedback"></div>
+            <div id="type-feedback" style="margin-top:10px; font-weight:bold;"></div>
         </div>
     </div>
 
@@ -411,48 +242,82 @@
 </div>
 
 <script>
-    // Daten der Schriftzeichen
     const charData = {
-        '经': { py: 'jīng', de: 'durchgehen / passieren' },
-        '练': { py: 'liàn', de: 'üben / trainieren' },
-        '礼': { py: 'lǐ', de: 'Brauch / Höflichkeit' },
-        '祝': { py: 'zhù', de: 'wünschen / segnen' },
-        '第': { py: 'dì', de: 'Präfix für Ordnungszahlen' },
-        '筷': { py: 'kuài', de: 'Essstäbchen' },
-        '笑': { py: 'xiào', de: 'lachen / lächeln' },
-        '篮': { py: 'lán', de: 'Korb' },
-        '笔': { py: 'bǐ', de: 'Stift / Pinsel' },
-        '多': { py: 'duō', de: 'viele / viel / mehr als' },
-        '岁': { py: 'suì', de: 'Jahre (Alter)' },
-        '名': { py: 'míng', de: 'Name / Rang' }
+        '馆': { trad: '館', py: 'guǎn', de: 'Gebäude / Halle' },
+        '体': { trad: '體', py: 'tǐ', de: 'Körper' },
+        '育': { trad: '育', py: 'yù', de: 'Erziehung / Bildung' },
+        '场': { trad: '場', py: 'chǎng', de: 'Platz / Feld' },
+        '操': { trad: '操', py: 'cāo', de: 'üben / Gymnastik' },
+        '离': { trad: '離', py: 'lí', de: 'entfernt sein von' },
+        '远': { trad: '遠', py: 'yuǎn', de: 'weit' },
+        '近': { trad: '近', py: 'jìn', de: 'nah' }
     };
 
-    // Vokabeldaten der Lektion
     const vocabData = [
-        { cn: "体育馆", py: "tīyùguǎn", de: "Turnhalle / Fitnessstudio" },
-        { cn: "网球", py: "wǎngqiú", de: "Tennis" },
-        { cn: "比分", py: "bǐfēn", de: "Punktestand / Ergebnis" },
-        { cn: "赢", py: "yíng", de: "gewinnen" },
-        { cn: "开始", py: "kāishǐ", de: "beginnen / anfangen" },
-        { cn: "第一名", py: "dì-yī-míng", de: "1. Platz / Erster" },
-        { cn: "祝贺", py: "zhùhè", de: "gratulieren" },
-        { cn: "准备", py: "zhǔnbèi", de: "vorbereiten" },
-        { cn: "马拉松", py: "mǎlāsōng", de: "Marathon" },
-        { cn: "消息", py: "xiāoxi", de: "Nachricht / Information" }
+        { cn: "体育馆", trad: "體育館", py: "tǐyùguǎn", de: "Turnhalle / Sporthalle" },
+        { cn: "操场", trad: "操場", py: "cāochǎng", de: "Sportplatz" },
+        { cn: "旁边", trad: "旁邊", py: "pángbiān", de: "neben / Seite" },
+        { cn: "离", trad: "離", py: "lí", de: "entfernt von" },
+        { cn: "远", trad: "遠", py: "yuǎn", de: "weit" },
+        { cn: "近", trad: "近", py: "jìn", de: "nah" },
+        { cn: "中间", trad: "中間", py: "zhōngjiān", de: "Mitte / dazwischen" },
+        { cn: "对面", trad: "對面", py: "duìmiàn", de: "gegenüber" }
     ];
 
-    // Sprachausgabe (Audio)
+    const sentenceData = [
+        {
+            de: "Wo ist die Turnhalle?",
+            correct: ["体育馆", "在哪里"],
+            words: [
+                { cn: "体育馆", py: "tǐyùguǎn" },
+                { cn: "在哪里", py: "zài nǎlǐ" },
+                { cn: "操场", py: "cāochǎng" },
+                { cn: "远", py: "yuǎn" }
+            ]
+        },
+        {
+            de: "Die Turnhalle ist neben dem Sportplatz.",
+            correct: ["体育馆", "在", "操场", "旁边"],
+            words: [
+                { cn: "体育馆", py: "tǐyùguǎn" },
+                { cn: "在", py: "zài" },
+                { cn: "操场", py: "cāochǎng" },
+                { cn: "旁边", py: "pángbiān" },
+                { cn: "离", py: "lí" }
+            ]
+        },
+        {
+            de: "Ist es weit von hier entfernt?",
+            correct: ["离", "这里", "远吗"],
+            words: [
+                { cn: "离", py: "lí" },
+                { cn: "这里", py: "zhèlǐ" },
+                { cn: "远吗", py: "yuǎn ma" },
+                { cn: "近", py: "jìn" },
+                { cn: "中间", py: "zhōngjiān" }
+            ]
+        }
+    ];
+
     function speak(text) {
+        if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
-        utterance.rate = 0.8; 
+        utterance.rate = 0.7;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('CN') || v.name.includes('Ting-Ting'));
+        if (zhVoice) utterance.voice = zhVoice;
         window.speechSynthesis.speak(utterance);
     }
 
-    // Schreibtrainer Funktionen
+    if (typeof speechSynthesis !== 'undefined') {
+        speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+    }
+
+    // Schreibtrainer
     let writer;
-    let currentChar = '经';
+    let currentChar = '馆';
 
     function initWriter(char) {
         document.getElementById('grid-background-target').innerHTML = '';
@@ -461,9 +326,8 @@
             strokeAnimationSpeed: 1, delayBetweenStrokes: 150,
             strokeColor: '#c0392b', outlineColor: '#ddd'
         });
-
-        // Info-Box aktualisieren
         document.getElementById('info-char').innerText = char;
+        document.getElementById('info-trad').innerText = charData[char].trad !== char ? `Langzeichen: ${charData[char].trad}` : '';
         document.getElementById('info-pinyin').innerText = charData[char].py;
         document.getElementById('info-german').innerText = charData[char].de;
     }
@@ -473,17 +337,14 @@
         document.querySelectorAll('.char-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         initWriter(char);
-        speak(char); // Automatisch vorlesen beim Wechseln
+        speak(char);
     }
 
-    function speakCurrentChar() {
-        speak(currentChar);
-    }
-
+    function speakCurrentChar() { speak(currentChar); }
     function animateChar() { if (writer) writer.animateCharacter(); }
     function quizChar() { if (writer) writer.quiz(); }
 
-    // Vokabel-Grid rendern
+    // Vokabel-Grid
     function renderVocabGrid() {
         const grid = document.getElementById('vocab-grid');
         grid.innerHTML = '';
@@ -491,15 +352,14 @@
             const card = document.createElement('div');
             card.className = 'card';
             card.onclick = (e) => {
-                if(!e.target.classList.contains('audio-btn')) {
-                    card.classList.toggle('active');
-                }
+                if(!e.target.classList.contains('audio-btn')) card.classList.toggle('active');
             };
             card.innerHTML = `
                 <div class="chinese">
                     ${item.cn} 
                     <button class="audio-btn" onclick="speak('${item.cn}')">🔊</button>
                 </div>
+                <div class="trad-tag">${item.trad !== item.cn ? 'Langzeichen: ' + item.trad : ''}</div>
                 <div class="pinyin">${item.py}</div>
                 <div class="german">${item.de}</div>
             `;
@@ -507,66 +367,150 @@
         });
     }
 
-    // Zuordnungs-Spiel
-    let selectedCn = null;
-    let selectedDe = null;
+    // ÜBUNG 1: 3-FELDER ZUORDNUNG
+    let selectedCn = null, selectedPy = null, selectedDe = null;
 
-    function initMatchingGame() {
+    function initMatchingGame3Col() {
         const cnCol = document.getElementById('cn-column');
+        const pyCol = document.getElementById('py-column');
         const deCol = document.getElementById('de-column');
-        cnCol.innerHTML = '';
-        deCol.innerHTML = '';
+        cnCol.innerHTML = ''; pyCol.innerHTML = ''; deCol.innerHTML = '';
 
-        const subset = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 5);
+        const subset = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 4);
         const shuffCn = [...subset].sort(() => 0.5 - Math.random());
+        const shuffPy = [...subset].sort(() => 0.5 - Math.random());
         const shuffDe = [...subset].sort(() => 0.5 - Math.random());
 
         shuffCn.forEach(item => {
             const div = document.createElement('div');
             div.className = 'match-item';
-            div.innerText = item.cn;
+            const showTrad = Math.random() > 0.5 && item.trad !== item.cn;
+            div.innerText = showTrad ? `${item.trad} (繁)` : item.cn;
             div.dataset.id = item.cn;
-            div.onclick = () => selectMatchItem(div, 'cn');
+            div.onclick = () => selectMatchItem3(div, 'cn');
             cnCol.appendChild(div);
+        });
+
+        shuffPy.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'match-item'; div.innerText = item.py; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'py');
+            pyCol.appendChild(div);
         });
 
         shuffDe.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'match-item';
-            div.innerText = item.de;
-            div.dataset.id = item.cn;
-            div.onclick = () => selectMatchItem(div, 'de');
+            div.className = 'match-item'; div.innerText = item.de; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'de');
             deCol.appendChild(div);
         });
     }
 
-    function selectMatchItem(el, type) {
+    function selectMatchItem3(el, type) {
         if(el.classList.contains('matched')) return;
 
         if (type === 'cn') {
             document.querySelectorAll('#cn-column .match-item').forEach(i => i.classList.remove('selected'));
             selectedCn = el;
+        } else if (type === 'py') {
+            document.querySelectorAll('#py-column .match-item').forEach(i => i.classList.remove('selected'));
+            selectedPy = el;
         } else {
             document.querySelectorAll('#de-column .match-item').forEach(i => i.classList.remove('selected'));
             selectedDe = el;
         }
         el.classList.add('selected');
 
-        if (selectedCn && selectedDe) {
-            if (selectedCn.dataset.id === selectedDe.dataset.id) {
+        if (selectedCn && selectedPy && selectedDe) {
+            if (selectedCn.dataset.id === selectedPy.dataset.id && selectedPy.dataset.id === selectedDe.dataset.id) {
                 selectedCn.className = 'match-item matched';
+                selectedPy.className = 'match-item matched';
                 selectedDe.className = 'match-item matched';
-                speak(selectedCn.innerText);
+                speak(selectedCn.dataset.id);
             } else {
                 selectedCn.classList.remove('selected');
+                selectedPy.classList.remove('selected');
                 selectedDe.classList.remove('selected');
             }
-            selectedCn = null;
-            selectedDe = null;
+            selectedCn = null; selectedPy = null; selectedDe = null;
         }
     }
 
-    // Tipp-Übung
+    // ÜBUNG 2: SATZBAU
+    let currentSentenceIdx = 0;
+    let userSentence = [];
+
+    function loadSentenceQuestion() {
+        const item = sentenceData[currentSentenceIdx];
+        document.getElementById('sentence-target').innerText = item.de;
+        document.getElementById('sentence-feedback').innerText = '';
+        
+        const dropZone = document.getElementById('drop-zone');
+        const wordPool = document.getElementById('word-pool');
+        dropZone.innerHTML = ''; wordPool.innerHTML = '';
+        userSentence = [];
+
+        const shuffledWords = [...item.words].sort(() => 0.5 - Math.random());
+
+        shuffledWords.forEach(w => {
+            const chip = document.createElement('div');
+            chip.className = 'word-chip';
+            chip.innerHTML = `${w.cn}<span class="chip-py">${w.py}</span>`;
+            chip.onclick = () => addWordToSentence(w, chip);
+            wordPool.appendChild(chip);
+        });
+    }
+
+    function addWordToSentence(wordObj, chipEl) {
+        if (chipEl.style.visibility === 'hidden') return;
+        userSentence.push(wordObj);
+        chipEl.style.visibility = 'hidden';
+
+        const dropZone = document.getElementById('drop-zone');
+        const placedChip = document.createElement('div');
+        placedChip.className = 'word-chip';
+        placedChip.innerHTML = `${wordObj.cn}<span class="chip-py">${wordObj.py}</span>`;
+        placedChip.onclick = () => removeWordFromSentence(wordObj, placedChip, chipEl);
+        dropZone.appendChild(placedChip);
+    }
+
+    function removeWordFromSentence(wordObj, placedChipEl, originalChipEl) {
+        userSentence = userSentence.filter(w => w !== wordObj);
+        placedChipEl.remove();
+        originalChipEl.style.visibility = 'visible';
+    }
+
+    function checkSentence() {
+        const item = sentenceData[currentSentenceIdx];
+        const userText = userSentence.map(w => w.cn).join('');
+        const correctText = item.correct.join('');
+
+        const feedback = document.getElementById('sentence-feedback');
+        if (userText === correctText) {
+            feedback.style.color = 'var(--success)';
+            feedback.innerText = '✅ Richtig gebaut!';
+            speak(userText);
+        } else {
+            feedback.style.color = 'var(--primary)';
+            feedback.innerText = '❌ Noch nicht ganz richtig. Versuche es weiter oder klicke auf "Lösung anzeigen"!';
+        }
+    }
+
+    function showSentenceSolution() {
+        const item = sentenceData[currentSentenceIdx];
+        const correctText = item.correct.join('');
+        const feedback = document.getElementById('sentence-feedback');
+        feedback.style.color = '#f39c12';
+        feedback.innerText = `💡 Die richtige Lösung lautet: ${correctText}`;
+        speak(correctText);
+    }
+
+    function nextSentence() {
+        currentSentenceIdx = (currentSentenceIdx + 1) % sentenceData.length;
+        loadSentenceQuestion();
+    }
+
+    // ÜBUNG 3: SELBST SCHREIBEN / TIPPEN
     let currentTypeIndex = 0;
 
     function loadTypingQuestion() {
@@ -581,16 +525,25 @@
         const item = vocabData[currentTypeIndex];
         const feedback = document.getElementById('type-feedback');
 
-        const cleanPy = item.py.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "");
+        const cleanPy = item.py.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
+        const cleanInput = input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/-/g, "").replace(/\s/g, "");
 
-        if (input === item.cn || input === cleanPy || input === item.py.toLowerCase()) {
+        if (cleanInput === item.cn || cleanInput === item.trad || cleanInput === cleanPy) {
             feedback.style.color = 'var(--success)';
-            feedback.innerText = '✅ Richtig! Gut gemacht!';
+            feedback.innerText = '✅ Richtig geschrieben!';
             speak(item.cn);
         } else {
             feedback.style.color = 'var(--primary)';
-            feedback.innerText = `❌ Noch nicht ganz. Richtig ist: ${item.cn} (${item.py})`;
+            feedback.innerText = '❌ Nicht ganz richtig. Versuche es nochmal!';
         }
+    }
+
+    function showTypingSolution() {
+        const item = vocabData[currentTypeIndex];
+        const feedback = document.getElementById('type-feedback');
+        feedback.style.color = '#f39c12';
+        feedback.innerText = `💡 Lösung: ${item.cn} ${item.trad !== item.cn ? '(' + item.trad + ')' : ''} [${item.py}]`;
+        speak(item.cn);
     }
 
     function nextTyping() {
@@ -598,10 +551,10 @@
         loadTypingQuestion();
     }
 
-    // Initiale Lade-Funktionen
     window.onload = function() {
         renderVocabGrid();
-        initMatchingGame();
+        initMatchingGame3Col();
+        loadSentenceQuestion();
         loadTypingQuestion();
         initWriter(currentChar);
     };
