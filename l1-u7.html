@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Unit 7 - Chinesisch Lernecke</title>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-hover: #6c3483;
+            --background: #f4ecf7;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --success: #27ae60;
+            --accent: #f39c12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; }
+        .nav-back { display: inline-block; margin-bottom: 15px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        h1, h2 { text-align: center; color: var(--primary); }
+        
+        .section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .hint { text-align: center; font-size: 0.9em; color: #666; margin-bottom: 15px; }
+
+        .audio-btn {
+            background: none; border: none; font-size: 1.2em; cursor: pointer; padding: 0 5px;
+            transition: transform 0.1s;
+        }
+        .audio-btn:hover { transform: scale(1.2); }
+
+        /* Dialog / Redemittel */
+        .dialog-box { display: flex; flex-direction: column; gap: 15px; }
+        .dialog-line { display: flex; gap: 15px; align-items: flex-start; background: #fdfefe; padding: 12px; border-radius: 8px; border: 1px solid #ebdef0; }
+        .speaker { background: var(--primary); color: white; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.9em; }
+        .speaker.b { background: #2980b9; }
+        .dialog-text .cn { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
+        .dialog-text .py { color: #7f8c8d; font-size: 0.95em; }
+        .dialog-text .de { color: var(--primary); font-size: 0.95em; margin-top: 3px; }
+
+        /* Schreibtrainer */
+        .writer-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px; }
+        .char-info-box {
+            text-align: center; background: #fdfefe; padding: 12px 20px; border-radius: 8px;
+            border: 1px solid #ebdef0; width: 80%; max-width: 320px;
+        }
+        .char-info-box .char-title { font-size: 1.8em; font-weight: bold; color: var(--primary); }
+        .char-info-box .char-pinyin { font-size: 1.2em; color: #7f8c8d; font-weight: 500; }
+        .char-info-box .char-german { font-size: 1em; color: var(--text); margin-top: 2px; }
+        #grid-background-target { border: 3px solid var(--primary); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .character-selector { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .char-btn { font-size: 1.4em; padding: 8px 14px; border: 2px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; }
+        .char-btn:hover, .char-btn.active { border-color: var(--primary); background-color: #f4ecf7; color: var(--primary); font-weight: bold; }
+        .controls { display: flex; gap: 10px; }
+        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-size: 1em; cursor: pointer; font-weight: bold; }
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: #7f8c8d; }
+
+        /* Audio Quiz */
+        .audio-quiz-box { text-align: center; padding: 20px; background: #fdfefe; border-radius: 10px; border: 1px solid #ebdef0; }
+        .big-audio-btn { font-size: 3em; background: #fff; border: 3px solid var(--primary); border-radius: 50%; width: 80px; height: 80px; cursor: pointer; transition: transform 0.2s; margin-bottom: 15px; }
+        .big-audio-btn:hover { transform: scale(1.1); }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto; }
+        .quiz-opt-btn { padding: 15px; font-size: 1.5em; border: 2px solid #ccc; background: #fff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .quiz-opt-btn:hover { border-color: var(--primary); background: #f4ecf7; }
+
+        /* Zuordnungsspiel mit 3 Spalten */
+        .match-container-3col { display: flex; justify-content: space-between; gap: 1
