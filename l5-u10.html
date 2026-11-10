@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5 Unit 10 - Chinesisch Lernecke</title>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-hover: #6c3483;
+            --background: #f4ecf7;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --success: #27ae60;
+            --accent: #f39c12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; }
+        .nav-back { display: inline-block; margin-bottom: 15px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        h1, h2 { text-align: center; color: var(--primary); }
+        
+        .section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .hint { text-align: center; font-size: 0.9em; color: #666; margin-bottom: 15px; }
+
+        .audio-btn {
+            background: none; border: none; font-size: 1.2em; cursor: pointer; padding: 0 5px;
+            transition: transform 0.1s;
+        }
+        .audio-btn:hover { transform: scale(1.2); }
+
+        /* Dialog */
+        .dialog-box { display: flex; flex-direction: column; gap: 15px; }
+        .dialog-line { display: flex; gap: 15px; align-items: flex-start; background: #fdfefe; padding: 12px; border-radius: 8px; border: 1px solid #ebdef0; }
+        .speaker { background: var(--primary); color: white; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.9em; }
+        .speaker.b { background: #2980b9; }
+        .dialog-text .cn { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
+        .dialog-text .py { color: #7f8c8d; font-size: 0.95em; }
+        .dialog-text .de { color: var(--primary); font-size: 0.95em; margin-top: 3px; }
+
+        /* Schreibtrainer */
+        .writer-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px; }
+        .char-info-box {
+            text-align: center; background: #fdfefe; padding: 12px 20px; border-radius: 8px;
+            border: 1px solid #ebdef0; width: 80%; max-width: 320px;
+        }
+        .char-info-box .char-title { font-size: 1.8em; font-weight: bold; color: var(--primary); }
+        .char-info-box .char-trad { font-size: 0.9em; color: #8e44ad; font-weight: bold; margin-bottom: 4px; }
+        .char-info-box .char-pinyin { font-size: 1.2em; color: #7f8c8d; font-weight: 500; }
+        .char-info-box .char-german { font-size: 1em; color: var(--text); margin-top: 2px; }
+        #grid-background-target { border: 3px solid var(--primary); border-radius: 10px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .character-selector { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .char-btn { font-size: 1.4em; padding: 8px 14px; border: 2px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; }
+        .char-btn:hover, .char-btn.active { border-color: var(--primary); background-color: #f4ecf7; color: var(--primary); font-weight: bold; }
+        .controls { display: flex; gap: 10px; }
+        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-size: 1em; cursor: pointer; font-weight: bold; }
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: #7f8c8d; }
+        .btn-warning { background-color: var(--accent); }
+
+        /* Audio Quiz */
+        .audio-quiz-box { text-align: center; padding: 20px; background: #fdfefe; border-radius: 10px; border: 1px solid #ebdef0; }
+        .big-audio-btn { font-size: 3em; background: #fff; border: 3px solid var(--primary); border-radius: 50%; width: 80px; height: 80px; cursor: pointer; transition: transform 0.2s; margin-bottom: 15px; }
+        .big-audio-btn:hover { transform: scale(1.1); }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto; }
+        .quiz-opt-btn { padding: 15px; font-size: 1.5em; border: 2px solid #ccc; background: #fff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .quiz-opt-btn:hover { border-color: var(--primary); background: #f4ecf7; }
+
+        /* Lückentext */
+        .cloze-box { text-align: center; padding: 15px; background: #fdfefe; border-radius: 8px; border: 1px solid #ebdef0; }
+        .cloze-sentence { font-size: 1.3em; margin-bottom: 15px; color: #2c3e50; font-weight: bold; }
+        .cloze-blank { display: inline-block; min-width: 80px; border-bottom: 3px solid var(--primary); color: var(--primary); padding: 0 8px; }
+        .cloze-options { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+
+        /* Zuordnungsspiel mit 3 Spalten */
+        .match-container-3col { display: flex; justify-content: space-between; gap: 10px; }
+        .match-column { display: flex; flex-direction: column; gap: 10px; width: 32%; }
+        .match-item { padding: 10px 5px; border: 2px solid #ddd; border-radius: 6px; background: #f9f9f9; text-align: center; cursor: pointer; font-size: 0.95em; }
+        .match-item.selected { border-color: var(--primary); background-color: #f4ecf7; font-weight: bold; }
+        .match-item.matched { border-color: var(--success); background-color: #d4efdf; color: var(--success); cursor: default; }
+
+        /* Vokabelkarten Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+        .card { border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; background: #fafafa; }
+        .card:hover { border-color: var(--primary); }
+        .chinese { font-size: 1.8em; color: #111; margin-bottom: 2px; }
+        .trad-tag { font-size: 0.8em; color: #8e44ad; visibility: hidden; }
+        .pinyin { font-size: 1em; color: #7f8c8d; visibility: hidden; }
+        .german { font-size: 0.95em; color: var(--primary); font-weight: bold; margin-top: 5px; visibility: hidden; }
+        .card.active .pinyin, .card.active .german, .card.active .trad-tag { visibility: visible; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="nav-back">⬅ Zurück zum Hauptmenü</a>
+    <h1>🏮 Level 5 Unit 10 - Lektion 10</h1>
+
+    <!-- SCHREIBTRAINER SECTION -->
+    <div class="section">
+        <h2>✍️ Schriftzeichen schreiben üben</h2>
+        <p class="hint">Wähle ein Zeichen, höre die Aussprache und zeichne es nach!</p>
+        
+        <div class="character-selector">
+            <button class="char-btn active" onclick="selectChar('旁', this)">旁</button>
+            <button class="char-btn" onclick="selectChar('旅', this)">旅</button>
+            <button class="char-btn" onclick="selectChar('知', this)">知</button>
+            <button class="char-btn" onclick="selectChar('短', this)">短</button>
+            <button class="char-btn" onclick="selectChar('矮', this)">矮</button>
+            <button class="char-btn" onclick="selectChar('要', this)">要</button>
+            <button class="char-btn" onclick="selectChar('票', this)">票</button>
+            <button class="char-btn" onclick="selectChar('灯', this)">灯</button>
+            <button class="char-btn" onclick="selectChar('烧', this)">烧</button>
+            <button class="char-btn" onclick="selectChar('炒', this)">炒</button>
+        </div>
+
+        <div class="writer-container">
+            <div class="char-info-box">
+                <span class="char-title" id="info-char">旁</span>
+                <button class="audio-btn" onclick="speakCurrentChar()">🔊</button>
+                <div class="char-trad" id="info-trad"></div>
+                <div class="char-pinyin" id="info-pinyin">páng</div>
+                <div class="char-german" id="info-german">Seite / neben</div>
+            </div>
+
+            <div id="grid-background-target"></div>
+
+            <div class="controls">
+                <button class="btn" onclick="animateChar()">▶ Animieren</button>
+                <button class="btn btn-secondary" onclick="quizChar()">✏️ Selbst üben</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIALOG SECTION -->
+    <div class="section">
+        <h2>🗣️ Übungsdialog (对话)</h2>
+        <div class="dialog-box">
+            <div class="dialog-line">
+                <div class="speaker">A</div>
+                <div class="dialog-text">
+                    <div class="cn">中秋节快到了，你打算怎么过？ <button class="audio-btn" onclick="speak('中秋节快到了，你打算怎么过？')">🔊</button></div>
+                    <div class="py">Zhōngqiūjié kuài dào le, nǐ dǎsuàn zěnme guò?</div>
+                    <div class="de">Das Mittherbstfest steht vor der Tür, wie planst du es zu verbringen?</div>
+                </div>
+            </div>
+            <div class="dialog-line">
+                <div class="speaker b">B</div>
+                <div class="dialog-text">
+                    <div class="cn">我打算和家人一起吃月饼，看月亮。 <button class="audio-btn" onclick="speak('我打算和家人一起吃月饼，看月亮。')">🔊</button></div>
+                    <div class="py">Wǒ dǎsuàn hé jiārén yīqǐ chī yuèbing, kàn yuèliang.</div>
+                    <div class="de">Ich plane, mit meiner Familie Mondkuchen zu essen und den Mond zu betrachten.</div>
+                </div>
+            </div>
+            <div class="dialog-line">
+                <div class="speaker">A</div>
+                <div class="dialog-text">
+                    <div class="cn">放假的时候，我们要不要去 旅游？ <button class="audio-btn" onclick="speak('放假的时候，我们要不要去旅游？')">🔊</button></div>
+                    <div class="py">Fàngjià de shíhou, wǒmen yào bú yào qù lǚyóu?</div>
+                    <div class="de">Wollen wir während der Ferien eine Reise machen?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO HÖRQUIZ -->
+    <div class="section">
+        <h2>🎧 Übung 1: Hörverständnis (Audio-Quiz)</h2>
+        <p class="hint">Klicke auf den Lautsprecher, höre gut zu und wähle das richtige Schriftzeichen!</p>
+        <div class="audio-quiz-box">
+            <button class="big-audio-btn" onclick="playQuizAudio()">🔊</button>
+            <div class="quiz-options" id="audio-quiz-options"></div>
+            <div id="audio-quiz-feedback" style="margin-top:15px; font-weight:bold;"></div>
+            <br>
+            <button class="btn btn-secondary" onclick="nextAudioQuiz()">Nächstes Wort ➔</button>
+        </div>
+    </div>
+
+    <!-- LÜCKENTEXT -->
+    <div class="section">
+        <h2>✏️ Übung 2: Lückentext (Sätze vervollständigen)</h2>
+        <p class="hint">Wähle das passende Wort aus, um die Lücke im Satz zu füllen!</p>
+        <div class="cloze-box">
+            <div class="cloze-sentence" id="cloze-text">Lade Satz...</div>
+            <div class="cloze-options" id="cloze-options"></div>
+            <button class="btn btn-warning" onclick="showClozeSolution()">💡 Lösung anzeigen</button>
+            <button class="btn btn-secondary" onclick="nextCloze()">Nächster Satz</button>
+            <div id="cloze-feedback" style="margin-top:10px; font-weight:bold;"></div>
+        </div>
+    </div>
+
+    <!-- ÜBUNG 3: 3-FELDER ZUORDNUNG -->
+    <div class="section">
+        <h2>🧩 Übung 3: Zeichen, Pinyin & Deutsch verbinden</h2>
+        <p class="hint">Wähle jeweils ein Feld aus jeder Spalte, die zusammengehören!</p>
+        <div class="match-container-3col">
+            <div class="match-column" id="cn-column"></div>
+            <div class="match-column" id="py-column"></div>
+            <div class="match-column" id="de-column"></div>
+        </div>
+    </div>
+
+    <!-- VOKABELN SECTION -->
+    <div class="section">
+        <h2>📚 Vokabel-Karteikarten</h2>
+        <p class="hint">Klicke auf eine Karte zum Aufklappen oder auf das 🔊 für die Aussprache!</p>
+        <div class="grid" id="vocab-grid"></div>
+    </div>
+</div>
+
+<script>
+    const charData = {
+        '旁': { trad: '旁', py: 'páng', de: 'Seite / neben' },
+        '旅': { trad: '旅', py: 'lǚ', de: 'reisen' },
+        '知': { trad: '知', py: 'zhī', de: 'wissen / kennen' },
+        '短': { trad: '短', py: 'duǎn', de: 'kurz' },
+        '矮': { trad: '矮', py: 'ǎi', de: 'klein (Körpergröße)' },
+        '要': { trad: '要', py: 'yào', de: 'wollen / möchten' },
+        '票': { trad: '票', py: 'piào', de: 'Ticket / Fahrkarte' },
+        '灯': { trad: '燈', py: 'dēng', de: 'Lampe / Laterne' },
+        '烧': { trad: '燒', py: 'shāo', de: 'brennen / kochen' },
+        '炒': { trad: '炒', py: 'chǎo', de: 'anbraten / rühren' }
+    };
+
+    const vocabData = [
+        { cn: "打算", trad: "打算", py: "dǎsuàn", de: "planen / vorhaben" },
+        { cn: "放假", trad: "放假", py: "fàngjià", de: "Ferien haben / Urlaub nehmen" },
+        { cn: "玩具", trad: "玩具", py: "wánjù", de: "Spielzeug" },
+        { cn: "钥匙链", trad: "鑰匙鏈", py: "yàoshiliàn", de: "Schlüsselanhänger" },
+        { cn: "中秋节", trad: "中秋節", py: "Zhōngqiūjié", de: "Mittherbstfest" },
+        { cn: "月亮", trad: "月亮", py: "yuèliang", de: "Mond" },
+        { cn: "月饼", trad: "月餅", py: "yuèbing", de: "Mondkuchen" },
+        { cn: "诗人", trad: "詩人", py: "shīrén", de: "Dichter / Poet" },
+        { cn: "明信片", trad: "明信片", py: "míngxìnpiàn", de: "Postkarte" },
+        { cn: "活动", trad: "活動", py: "huódòng", de: "Aktivität / Veranstaltung" },
+        { cn: "地球", trad: "地球", py: "dìqiú", de: "Erde (Planet)" },
+        { cn: "保护环境", trad: "保護環境", py: "bǎohù huánjìng", de: "die Umwelt schützen" }
+    ];
+
+    const clozeData = [
+        {
+            before: "中秋节快到了，你",
+            after: "怎么过？",
+            correct: "打算",
+            options: ["打算", "放假", "保护", "参观"],
+            translation: "Das Mittherbstfest kommt bald, wie planst du es zu verbringen?"
+        },
+        {
+            before: "中秋节我们要吃",
+            after: "和看月亮。",
+            correct: "月饼",
+            options: ["月饼", "玩具", "明信片", "票"],
+            translation: "Zum Mittherbstfest essen wir Mondkuchen und schauen den Mond an."
+        },
+        {
+            before: "我们应该",
+            after: "地球和环境。",
+            correct: "保护",
+            options: ["保护", "打算", "放假", "烧"],
+            translation: "Wir sollten die Erde und die Umwelt schützen."
+        }
+    ];
+
+    function speak(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.7;
+        const voices = window.speechSynthesis.getVoices();
+        const zhVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('CN') || v.name.includes('Ting-Ting'));
+        if (zhVoice) utterance.voice = zhVoice;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    if (typeof speechSynthesis !== 'undefined') {
+        speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+    }
+
+    // Schreibtrainer
+    let writer;
+    let currentChar = '旁';
+
+    function initWriter(char) {
+        document.getElementById('grid-background-target').innerHTML = '';
+        writer = HanziWriter.create('grid-background-target', char, {
+            width: 200, height: 200, padding: 10, showOutline: true,
+            strokeAnimationSpeed: 1, delayBetweenStrokes: 150,
+            strokeColor: '#8e44ad', outlineColor: '#ddd'
+        });
+        document.getElementById('info-char').innerText = char;
+        document.getElementById('info-trad').innerText = charData[char].trad !== char ? `Langzeichen: ${charData[char].trad}` : '';
+        document.getElementById('info-pinyin').innerText = charData[char].py;
+        document.getElementById('info-german').innerText = charData[char].de;
+    }
+
+    function selectChar(char, btn) {
+        currentChar = char;
+        document.querySelectorAll('.char-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        initWriter(char);
+        speak(char);
+    }
+
+    function speakCurrentChar() { speak(currentChar); }
+    function animateChar() { if (writer) writer.animateCharacter(); }
+    function quizChar() { if (writer) writer.quiz(); }
+
+    // AUDIO QUIZ LOGIK
+    let currentQuizItem = null;
+
+    function nextAudioQuiz() {
+        document.getElementById('audio-quiz-feedback').innerText = '';
+        currentQuizItem = vocabData[Math.floor(Math.random() * vocabData.length)];
+        
+        let options = [currentQuizItem];
+        while (options.length < 4) {
+            let rand = vocabData[Math.floor(Math.random() * vocabData.length)];
+            if (!options.includes(rand)) options.push(rand);
+        }
+        options.sort(() => 0.5 - Math.random());
+
+        const optContainer = document.getElementById('audio-quiz-options');
+        optContainer.innerHTML = '';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-opt-btn';
+            btn.innerText = opt.cn;
+            btn.onclick = () => checkAudioAnswer(opt, btn);
+            optContainer.appendChild(btn);
+        });
+
+        playQuizAudio();
+    }
+
+    function playQuizAudio() {
+        if (currentQuizItem) speak(currentQuizItem.cn);
+    }
+
+    function checkAudioAnswer(selected, btn) {
+        const feedback = document.getElementById('audio-quiz-feedback');
+        if (selected.cn === currentQuizItem.cn) {
+            feedback.style.color = 'var(--success)';
+            feedback.innerText = `✅ Richtig! ${currentQuizItem.cn} = ${currentQuizItem.de}`;
+            speak(currentQuizItem.cn);
+        } else {
+            feedback.style.color = '#c0392b';
+            feedback.innerText = '❌ Versuche es nochmal!';
+        }
+    }
+
+    // LÜCKENTEXT LOGIK
+    let currentClozeIdx = 0;
+
+    function loadClozeQuestion() {
+        const item = clozeData[currentClozeIdx];
+        document.getElementById('cloze-feedback').innerText = '';
+        
+        const textContainer = document.getElementById('cloze-text');
+        textContainer.innerHTML = `${item.before} <span class="cloze-blank" id="blank-target">???</span> ${item.after}`;
+
+        const optContainer = document.getElementById('cloze-options');
+        optContainer.innerHTML = '';
+
+        const shuffledOpts = [...item.options].sort(() => 0.5 - Math.random());
+        shuffledOpts.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkClozeAnswer(opt);
+            optContainer.appendChild(btn);
+        });
+    }
+
+    function checkClozeAnswer(selected) {
+        const item = clozeData[currentClozeIdx];
+        const feedback = document.getElementById('cloze-feedback');
+        const blank = document.getElementById('blank-target');
+
+        if (selected === item.correct) {
+            blank.innerText = selected;
+            feedback.style.color = 'var(--success)';
+            feedback.innerText = `✅ Richtig! (${item.translation})`;
+            speak(item.before + selected + item.after);
+        } else {
+            feedback.style.color = '#c0392b';
+            feedback.innerText = '❌ Das passt hier nicht. Probier ein anderes Wort!';
+        }
+    }
+
+    function showClozeSolution() {
+        const item = clozeData[currentClozeIdx];
+        document.getElementById('blank-target').innerText = item.correct;
+        const feedback = document.getElementById('cloze-feedback');
+        feedback.style.color = 'var(--accent)';
+        feedback.innerText = `💡 Lösung: ${item.correct} (${item.translation})`;
+        speak(item.before + item.correct + item.after);
+    }
+
+    function nextCloze() {
+        currentClozeIdx = (currentClozeIdx + 1) % clozeData.length;
+        loadClozeQuestion();
+    }
+
+    // VOKABEL GRID
+    function renderVocabGrid() {
+        const grid = document.getElementById('vocab-grid');
+        grid.innerHTML = '';
+        vocabData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = (e) => {
+                if(!e.target.classList.contains('audio-btn')) card.classList.toggle('active');
+            };
+            card.innerHTML = `
+                <div class="chinese">
+                    ${item.cn} 
+                    <button class="audio-btn" onclick="speak('${item.cn}')">🔊</button>
+                </div>
+                <div class="trad-tag">${item.trad !== item.cn ? 'Langzeichen: ' + item.trad : ''}</div>
+                <div class="pinyin">${item.py}</div>
+                <div class="german">${item.de}</div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // ZUORDNUNGSSPIEL
+    let selectedCn = null, selectedPy = null, selectedDe = null;
+
+    function initMatchingGame3Col() {
+        const cnCol = document.getElementById('cn-column');
+        const pyCol = document.getElementById('py-column');
+        const deCol = document.getElementById('de-column');
+        cnCol.innerHTML = ''; pyCol.innerHTML = ''; deCol.innerHTML = '';
+
+        const subset = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 4);
+        const shuffCn = [...subset].sort(() => 0.5 - Math.random());
+        const shuffPy = [...subset].sort(() => 0.5 - Math.random());
+        const shuffDe = [...subset].sort(() => 0.5 - Math.random());
+
+        shuffCn.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'match-item';
+            const showTrad = Math.random() > 0.5 && item.trad !== item.cn;
+            div.innerText = showTrad ? `${item.trad} (繁)` : item.cn;
+            div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'cn');
+            cnCol.appendChild(div);
+        });
+
+        shuffPy.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'match-item'; div.innerText = item.py; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'py');
+            pyCol.appendChild(div);
+        });
+
+        shuffDe.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'match-item'; div.innerText = item.de; div.dataset.id = item.cn;
+            div.onclick = () => selectMatchItem3(div, 'de');
+            deCol.appendChild(div);
+        });
+    }
+
+    function selectMatchItem3(el, type) {
+        if(el.classList.contains('matched')) return;
+
+        if (type === 'cn') {
+            document.querySelectorAll('#cn-column .match-item').forEach(i => i.classList.remove('selected'));
+            selectedCn = el;
+        } else if (type === 'py') {
+            document.querySelectorAll('#py-column .match-item').forEach(i => i.classList.remove('selected'));
+            selectedPy = el;
+        } else {
+            document.querySelectorAll('#de-column .match-item').forEach(i => i.classList.remove('selected'));
+            selectedDe = el;
+        }
+        el.classList.add('selected');
+
+        if (selectedCn && selectedPy && selectedDe) {
+            if (selectedCn.dataset.id === selectedPy.dataset.id && selectedPy.dataset.id === selectedDe.dataset.id) {
+                selectedCn.className = 'match-item matched';
+                selectedPy.className = 'match-item matched';
+                selectedDe.className = 'match-item matched';
+                speak(selectedCn.dataset.id);
+            } else {
+                selectedCn.classList.remove('selected');
+                selectedPy.classList.remove('selected');
+                selectedDe.classList.remove('selected');
+            }
+            selectedCn = null; selectedPy = null; selectedDe = null;
+        }
+    }
+
+    window.onload = function() {
+        renderVocabGrid();
+        initMatchingGame3Col();
+        nextAudioQuiz();
+        loadClozeQuestion();
+        initWriter(currentChar);
+    };
+</script>
+
+</body>
+</html>
