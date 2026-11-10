@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Unit 5 - Chinesisch Lernecke</title>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --primary-hover: #962d22;
+            --background: #fdebd0;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --success: #27ae60;
+            --accent: #d35400;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; }
+        .nav-back { display: inline-block; margin-bottom: 15px; color: var(--primary); text-decoration: none; font-weight: bold; }
+        h1, h2 { text-align: center; color: var(--primary); }
+        
+        .section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .hint { text-align: center; font-size: 0.9em; color: #666; margin-bottom: 15px; }
+
+        .audio-btn {
+            background: none; border: none; font-size: 1.2em; cursor: pointer; padding: 0 5px;
+            transition: transform 0.1s;
+        }
+        .audio-btn:hover { transform: scale(1.2); }
+
+        /* Dialog / Redemittel */
+        .dialog-box { display: flex; flex-direction: column; gap: 15px; }
+        .dialog-line { display: flex; gap: 15px; align-items: flex-start; background: #fef5e7; padding: 12px; border-radius: 8px; border: 1px solid #fadbd8; }
+        .speaker { background: var(--primary); color: white; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.9em; }
+        .speaker.b { background: #2980b9; }
+        .dialog-text .cn { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
+        .dialog-text .py { color: #7f8c8d; font-size: 0.95em; }
+        .dialog-text .de { color: var(--primary); font-size: 0.95em; margin-top: 3px; }
+
+        /* Schreibtrainer */
+        .writer-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px; }
+        .char-info-box {
+            text-align: center; background: #
